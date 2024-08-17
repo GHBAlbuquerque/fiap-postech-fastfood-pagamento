@@ -1,7 +1,9 @@
 package com.fiap.fastfood.communication.gateways;
 
 import com.fiap.fastfood.common.dto.command.OrderCommand;
+import com.fiap.fastfood.common.dto.message.CustomMessageHeaders;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
+import com.fiap.fastfood.common.dto.response.CreateOrderResponse;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
 import com.fiap.fastfood.common.exceptions.custom.PaymentCancellationException;
 import com.fiap.fastfood.common.exceptions.custom.PaymentCreationException;
@@ -9,6 +11,7 @@ import com.fiap.fastfood.common.interfaces.external.MessageSender;
 import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.common.interfaces.usecase.PaymentUseCase;
+import com.fiap.fastfood.common.logging.Constants;
 import com.fiap.fastfood.common.logging.LoggingPattern;
 import com.fiap.fastfood.common.logging.TransactionInformationStorage;
 import com.fiap.fastfood.core.entity.OrquestrationStepEnum;
@@ -20,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.MessageHeaders;
 
-import static com.fiap.fastfood.common.logging.Constants.HEADER_RECEIVE_COUNT;
+import static com.fiap.fastfood.common.logging.Constants.*;
 import static io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode.ON_SUCCESS;
 
 public class OrquestrationGatewayImpl implements OrquestrationGateway {
@@ -189,7 +192,49 @@ public class OrquestrationGatewayImpl implements OrquestrationGateway {
     }
 
     @Override
-    public void sendResponse(String orderId, String customerId, String paymentId, OrquestrationStepEnum orquestrationStepEnum, Boolean stepSuccessful) throws PaymentCreationException {
+    public void sendResponse(String orderId, Long customerId, String paymentId, OrquestrationStepEnum orquestrationStepEnum, Boolean stepSuccessful) throws PaymentCreationException {
+        logger.info(
+                LoggingPattern.RESPONSE_INIT_LOG,
+                TransactionInformationStorage.getSagaId(),
+                Constants.MS_SAGA
+        );
 
+        final var message = createResponseMessage(orderId, customerId, paymentId, orquestrationStepEnum, stepSuccessful);
+
+        try {
+
+            messageSender.sendMessage(
+                    message,
+                    message.getHeaders().getSagaId(),
+                    queueResponseSaga
+            );
+
+            logger.info(LoggingPattern.RESPONSE_END_LOG,
+                    message.getHeaders().getSagaId(),
+                    Constants.MS_SAGA);
+
+        } catch (Exception ex) {
+
+            logger.info(LoggingPattern.RESPONSE_ERROR_LOG,
+                    TransactionInformationStorage.getSagaId(),
+                    Constants.MS_SAGA,
+                    ex.getMessage(),
+                    message.toString());
+
+            throw new PaymentCreationException(ExceptionCodes.PAYMENT_08_RESPONSE_SAGA, ex.getMessage());
+
+        }
+    }
+
+    private static CustomQueueMessage<CreateOrderResponse> createResponseMessage(String orderId, Long customerId, String paymentId, OrquestrationStepEnum orquestrationStepEnum, Boolean stepSuccessful) {
+        final var headers = new CustomMessageHeaders(TransactionInformationStorage.getSagaId(), orderId, MESSAGE_TYPE_RESPONSE, MS_PAYMENT);
+        return new CustomQueueMessage<>(
+                headers,
+                new CreateOrderResponse(orderId,
+                        customerId,
+                        paymentId,
+                        orquestrationStepEnum,
+                        stepSuccessful)
+        );
     }
 }

@@ -19,7 +19,7 @@ public interface OrquestrationGateway {
 
 
     void sendResponse(String orderId,
-                      String customerId,
+                      Long customerId,
                       String paymentId,
                       OrquestrationStepEnum orquestrationStepEnum,
                       Boolean stepSuccessful) throws PaymentCreationException;
