@@ -7,11 +7,11 @@ import java.util.List;
 
 public class NoSuchEntityException extends CustomException {
 
-    public NoSuchEntityException(String code, String message) {
+    public NoSuchEntityException(ExceptionCodes code, String message) {
         super(code, message);
     }
 
-    public NoSuchEntityException(String code, String message, List<CustomError> customErrors) {
+    public NoSuchEntityException(ExceptionCodes code, String message, List<CustomError> customErrors) {
         super(code, message, customErrors);
     }
 }

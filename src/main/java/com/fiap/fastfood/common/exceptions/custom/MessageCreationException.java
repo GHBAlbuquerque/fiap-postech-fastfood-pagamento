@@ -5,13 +5,13 @@ import com.fiap.fastfood.common.exceptions.model.CustomException;
 
 import java.util.List;
 
-public class CreateEntityException extends CustomException {
+public class MessageCreationException extends CustomException {
 
-    public CreateEntityException(ExceptionCodes code, String message) {
+    public MessageCreationException(ExceptionCodes code, String message) {
         super(code, message);
     }
 
-    public CreateEntityException(ExceptionCodes code, String message, List<CustomError> customErrors) {
+    public MessageCreationException(ExceptionCodes code, String message, List<CustomError> customErrors) {
         super(code, message, customErrors);
     }
 }

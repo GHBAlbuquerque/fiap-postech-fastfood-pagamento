@@ -7,11 +7,11 @@ import java.util.List;
 
 public class AlreadyRegisteredException extends CustomException {
 
-    public AlreadyRegisteredException(String code, String message) {
+    public AlreadyRegisteredException(ExceptionCodes code, String message) {
         super(code, message);
     }
 
-    public AlreadyRegisteredException(String code, String message, List<CustomError> customErrors) {
+    public AlreadyRegisteredException(ExceptionCodes code, String message, List<CustomError> customErrors) {
         super(code, message, customErrors);
     }
 }
