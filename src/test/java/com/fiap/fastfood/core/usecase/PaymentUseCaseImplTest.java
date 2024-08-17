@@ -25,7 +25,7 @@ public class PaymentUseCaseImplTest {
         Mockito.when(gatewayMock.save(paymentMock))
                 .thenReturn(paymentMock);
 
-        Assertions.assertNotNull(paymentUseCase.submit(paymentMock, gatewayMock));
+        Assertions.assertNotNull(paymentUseCase.createPayment(paymentMock, gatewayMock));
     }
 
     @Test

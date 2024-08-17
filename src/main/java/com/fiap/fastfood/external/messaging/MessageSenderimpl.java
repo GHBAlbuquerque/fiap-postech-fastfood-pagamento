@@ -56,7 +56,7 @@ public class MessageSenderimpl implements MessageSender {
             );
 
             throw new MessageCreationException(
-                    ExceptionCodes.ORDER_06_MESSAGE_CREATION,
+                    ExceptionCodes.PAYMENT_06_MESSAGE_CREATION,
                     "Error creating SQS message. Exception: " + ex.getMessage());
         }
     }
