@@ -17,16 +17,20 @@ public class TransactionInformationStorage {
         MDC.put("receiveCount", receiveCount);
     }
 
-    public static void putPaymentID(String paymentId) {
-        MDC.put("paymentId", paymentId);
+    public static void putCustomerId(String customerId) {
+        MDC.put("customerId", customerId);
     }
 
     public static String getSagaId() {
         return MDC.get("sagaId");
     }
 
-    public static String getPaymentId() {
-        return MDC.get("paymentId");
+    public static String getOrderId() {
+        return MDC.get("orderId");
+    }
+
+    public static String getCustomerId() {
+        return MDC.get("customerId");
     }
 
     public static String getReceiveCount() {

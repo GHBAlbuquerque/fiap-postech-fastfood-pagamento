@@ -13,7 +13,7 @@ public interface OrquestrationGateway {
 
     void listenToPaymentCharge(MessageHeaders headers, CustomQueueMessage<OrderCommand> message) throws PaymentCreationException;
 
-    void listenToPaymentReverse(MessageHeaders headers, CustomQueueMessage<OrderCommand> message) throws PaymentCancellationException;
+    void listenToPaymentReversal(MessageHeaders headers, CustomQueueMessage<OrderCommand> message) throws PaymentCancellationException;
 
     void listenToPaymentCancellation(MessageHeaders headers, CustomQueueMessage<OrderCommand> message) throws PaymentCancellationException;
 

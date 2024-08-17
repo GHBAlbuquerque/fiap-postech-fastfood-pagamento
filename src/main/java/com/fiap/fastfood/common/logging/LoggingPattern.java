@@ -10,19 +10,19 @@ public class LoggingPattern {
     public static final String RESPONSE_END_LOG = "[COMMAND] SagaId: {} | Response Succesfully sent to {}.";
     public static final String RESPONSE_ERROR_LOG = "[COMMAND] SagaId: {} | Error sending response to {}. | Error Message: {} | Message: {}";
 
-    public static final String ORDER_CREATION_INIT_LOG = "[COMMAND] SagaId: {} | Creating order.";
-    public static final String ORDER_CREATION_END_LOG = "[COMMAND] SagaId: {} | Order created.";
-    public static final String ORDER_CREATION_ERROR_LOG = "[COMMAND] SagaId: {} | Error creating order. | Error Message: {} ";
+    public static final String PAYMENT_CREATION_INIT_LOG = "[COMMAND] SagaId: {} | Creating payment.";
+    public static final String PAYMENT_CREATION_END_LOG = "[COMMAND] SagaId: {} | Payment created.";
+    public static final String PAYMENT_CREATION_ERROR_LOG = "[COMMAND] SagaId: {} | Error creating payment. | Error Message: {} ";
 
-    public static final String ORDER_PREPARATION_INIT_LOG = "[COMMAND] SagaId: {} | Preparing order.";
-    public static final String ORDER_PREPARATION_END_LOG = "[COMMAND] SagaId: {} | Order prepared.";
-    public static final String ORDER_PREPARATION_ERROR_LOG = "[COMMAND] SagaId: {} | Error preparing order. | Error Message: {} ";
+    public static final String PAYMENT_CHARGE_INIT_LOG = "[COMMAND] SagaId: {} | Charging payment.";
+    public static final String PAYMENT_CHARGE_END_LOG = "[COMMAND] SagaId: {} | Payment charged.";
+    public static final String PAYMENT_CHARGE_ERROR_LOG = "[COMMAND] SagaId: {} | Error charging payment. | Error Message: {} ";
 
-    public static final String ORDER_COMPLETION_INIT_LOG = "[COMMAND] SagaId: {} | Completing order.";
-    public static final String ORDER_COMPLETION_END_LOG = "[COMMAND] SagaId: {} | Order completed.";
-    public static final String ORDER_COMPLETION_ERROR_LOG = "[COMMAND] SagaId: {} | Error completing order. | Error Message: {} ";
+    public static final String PAYMENT_REVERSAL_INIT_LOG = "[COMMAND] SagaId: {} | Reversing payment.";
+    public static final String PAYMENT_REVERSAL_END_LOG = "[COMMAND] SagaId: {} | Payment reversed.";
+    public static final String PAYMENT_REVERSAL_ERROR_LOG = "[COMMAND] SagaId: {} | Error reversing payment. | Error Message: {} ";
 
-    public static final String ORDER_CANCELLATION_INIT_LOG = "[COMMAND] SagaId: {} | Cancelling order. | Message: {}";
-    public static final String ORDER_CANCELLATION_END_LOG = "[COMMAND] SagaId: {} | Order cancelled.";
-    public static final String ORDER_CANCELLATION_ERROR_LOG = "[COMMAND] SagaId: {} | Error cancelling order. | Error Message: {} ";
+    public static final String PAYMENT_CANCELLATION_INIT_LOG = "[COMMAND] SagaId: {} | Cancelling payment. | Message: {}";
+    public static final String PAYMENT_CANCELLATION_END_LOG = "[COMMAND] SagaId: {} | Payment cancelled.";
+    public static final String PAYMENT_CANCELLATION_ERROR_LOG = "[COMMAND] SagaId: {} | Error cancelling payment. | Error Message: {} ";
 }

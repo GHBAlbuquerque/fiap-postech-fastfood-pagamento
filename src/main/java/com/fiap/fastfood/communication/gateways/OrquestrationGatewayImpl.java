@@ -119,7 +119,7 @@ public class OrquestrationGatewayImpl implements OrquestrationGateway {
 
     @Override
     @SqsListener(queueNames = "${aws.comando_estornar_pagamento.url}", maxConcurrentMessages = "1", maxMessagesPerPoll = "1", acknowledgementMode = ON_SUCCESS)
-    public void listenToPaymentReverse(MessageHeaders headers, CustomQueueMessage<OrderCommand> message) throws PaymentCancellationException {
+    public void listenToPaymentReversal(MessageHeaders headers, CustomQueueMessage<OrderCommand> message) throws PaymentCancellationException {
         logger.info(
                 LoggingPattern.COMMAND_INIT_LOG,
                 message.getHeaders().getSagaId(),
