@@ -14,9 +14,11 @@ public class LoggingPattern {
     public static final String PAYMENT_CREATION_END_LOG = "[COMMAND] SagaId: {} | Payment created.";
     public static final String PAYMENT_CREATION_ERROR_LOG = "[COMMAND] SagaId: {} | Error creating payment. | Error Message: {} ";
 
-    public static final String PAYMENT_CHARGE_INIT_LOG = "[COMMAND] SagaId: {} | Charging payment.";
-    public static final String PAYMENT_CHARGE_END_LOG = "[COMMAND] SagaId: {} | Payment charged.";
+    public static final String PAYMENT_CHARGE_INIT_LOG = "[COMMAND] SagaId: {} | Charging payment...";
+    public static final String PAYMENT_CHARGE_CONFIRMATION_LOG = "[COMMAND] SagaId: {} | Payment charged Updating status to APPROVED.";
+    public static final String PAYMENT_CHARGE_END_LOG = "[COMMAND] SagaId: {} | Payment succesfully charged.";
     public static final String PAYMENT_CHARGE_ERROR_LOG = "[COMMAND] SagaId: {} | Error charging payment. | Error Message: {} ";
+    public static final String PAYMENT_CHARGE_REJECTION_LOG = "[COMMAND] SagaId: {} | Payment was rejected. Updating status to REJECTED.";
 
     public static final String PAYMENT_REVERSAL_INIT_LOG = "[COMMAND] SagaId: {} | Reversing payment.";
     public static final String PAYMENT_REVERSAL_END_LOG = "[COMMAND] SagaId: {} | Payment reversed.";
