@@ -25,14 +25,8 @@ spec:
               cpu: "500m"  # Limite de CPU
               memory: "1Gi"
           env:
-            - name: MS_PRODUTO_URL
-              value: "http://alb-cluster-fiap-2100904419.us-east-1.elb.amazonaws.com"
-            - name: MS_CLIENTE_URL
-              value: "http://alb-cluster-fiap-2100904419.us-east-1.elb.amazonaws.com"
-            - name: MS_PEDIDO_URL
-              value: ""
             - name: ACCOUNT_ID
-              value: "731362576078"
+              value: "673847524989"
           ports:
             - containerPort: 80
               protocol: TCP
