@@ -96,7 +96,10 @@ public class OrquestrationGatewayImpl implements OrquestrationGateway {
 
         try {
 
-            final var newPayment = new Payment(message.getBody().getOrderId(), PaymentStatus.PENDING);
+            final var newPayment = new Payment(
+                    message.getBody().getPaymentId(),
+                    message.getBody().getOrderId(),
+                    PaymentStatus.PENDING);
 
             paymentUseCase.chargePayment(
                     newPayment,

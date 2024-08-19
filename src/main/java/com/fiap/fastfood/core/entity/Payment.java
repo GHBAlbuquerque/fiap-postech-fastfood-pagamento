@@ -22,4 +22,10 @@ public class Payment {
         this.orderId = orderId;
         this.status = status;
     }
+
+    public Payment(String id, String orderId, PaymentStatus status) {
+        this.id = id;
+        this.orderId = orderId;
+        this.status = status;
+    }
 }

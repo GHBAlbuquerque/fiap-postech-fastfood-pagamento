@@ -39,7 +39,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
     }
 
     @Override
-    public Payment updateStatus(String id, PaymentStatus paymentStatus) throws EntityNotFoundException {
+    public Payment updateStatus(String id, PaymentStatus paymentStatus) throws EntityNotFoundException, PaymentCreationException {
         final var optional = paymentRepository.findById(id);
 
         if (optional.isEmpty()) {
@@ -50,6 +50,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
         }
 
         final var payment = optional.get();
+
+        final var currentPaymentStatus = payment.getStatus();
+
+        if (currentPaymentStatus.equals(paymentStatus)) {
+            throw new PaymentCreationException(ExceptionCodes.PAYMENT_O9_PAYMENT_CHARGE,
+                    String.format("Payment %s is already with status %s", payment.getId(), paymentStatus));
+        }
 
         payment.setStatus(paymentStatus.name());
 

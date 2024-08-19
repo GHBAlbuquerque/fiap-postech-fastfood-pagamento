@@ -11,7 +11,7 @@ public interface PaymentGateway {
 
     Payment save(Payment Payment) throws PaymentCreationException;
 
-    Payment updateStatus(String id, PaymentStatus paymentStatus) throws EntityNotFoundException;
+    Payment updateStatus(String id, PaymentStatus paymentStatus) throws EntityNotFoundException, PaymentCreationException;
 
     List<Payment> findAll();
 }
