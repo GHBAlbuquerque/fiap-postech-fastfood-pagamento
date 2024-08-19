@@ -17,7 +17,6 @@ public interface OrquestrationGateway {
 
     void listenToPaymentCancellation(MessageHeaders headers, CustomQueueMessage<OrderCommand> message) throws PaymentCancellationException;
 
-
     void sendResponse(String orderId,
                       Long customerId,
                       String paymentId,

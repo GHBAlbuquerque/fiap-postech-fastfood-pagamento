@@ -10,4 +10,6 @@ import java.util.List;
 public interface PaymentRepository extends CrudRepository<PaymentORM, String> {
 
     List<PaymentORM> findAll();
+
+    List<PaymentORM> findByOrderId(String orderId);
 }

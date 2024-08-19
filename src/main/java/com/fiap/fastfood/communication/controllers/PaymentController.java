@@ -41,6 +41,6 @@ public class PaymentController {
 
         return ResponseEntity.ok(result.stream()
                 .map(PaymentBuilder::fromDomainToResponse)
-                .collect(Collectors.toList()));
+                .toList());
     }
 }

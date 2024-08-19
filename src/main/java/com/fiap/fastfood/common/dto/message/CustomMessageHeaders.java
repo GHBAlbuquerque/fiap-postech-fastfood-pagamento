@@ -1,9 +1,6 @@
 package com.fiap.fastfood.common.dto.message;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 @Getter
@@ -11,6 +8,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class CustomMessageHeaders {
 
     private String sagaId;

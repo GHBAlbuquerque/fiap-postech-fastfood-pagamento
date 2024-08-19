@@ -17,8 +17,8 @@ public class TransactionInformationStorage {
         MDC.put("receiveCount", receiveCount);
     }
 
-    public static void putCustomerId(String customerId) {
-        MDC.put("customerId", customerId);
+    public static void putCustomerId(Long customerId) {
+        MDC.put("customerId", String.valueOf(customerId));
     }
 
     public static String getSagaId() {

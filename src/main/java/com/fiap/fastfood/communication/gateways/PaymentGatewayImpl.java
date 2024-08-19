@@ -3,6 +3,7 @@ package com.fiap.fastfood.communication.gateways;
 import com.fiap.fastfood.common.builders.PaymentBuilder;
 import com.fiap.fastfood.common.exceptions.custom.EntityNotFoundException;
 import com.fiap.fastfood.common.exceptions.custom.ExceptionCodes;
+import com.fiap.fastfood.common.exceptions.custom.PaymentCreationException;
 import com.fiap.fastfood.common.interfaces.datasources.PaymentRepository;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.core.entity.Payment;
@@ -23,7 +24,14 @@ public class PaymentGatewayImpl implements PaymentGateway {
     }
 
     @Override
-    public Payment save(Payment payment) {
+    public Payment save(Payment payment) throws PaymentCreationException {
+        final var existantPayment = paymentRepository.findByOrderId(payment.getOrderId());
+
+        if (!existantPayment.isEmpty()) {
+            throw new PaymentCreationException(ExceptionCodes.PAYMENT_02_PAYMENT_CREATION,
+                    String.format("Payment already exists for order with Id %s", payment.getOrderId()));
+        }
+
         final var orm = PaymentBuilder.fromDomainToOrm(payment);
         final var result = paymentRepository.save(orm);
 
