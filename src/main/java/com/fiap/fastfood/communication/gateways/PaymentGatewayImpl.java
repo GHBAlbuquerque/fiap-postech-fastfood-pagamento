@@ -53,7 +53,7 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
         final var currentPaymentStatus = payment.getStatus();
 
-        if (currentPaymentStatus.equals(paymentStatus)) {
+        if (currentPaymentStatus.equals(paymentStatus.name())) {
             throw new PaymentCreationException(ExceptionCodes.PAYMENT_O9_PAYMENT_CHARGE,
                     String.format("Payment %s is already with status %s", payment.getId(), paymentStatus));
         }

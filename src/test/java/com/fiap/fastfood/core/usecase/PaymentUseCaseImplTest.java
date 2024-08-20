@@ -1,41 +1,51 @@
 package com.fiap.fastfood.core.usecase;
 
+import com.fiap.fastfood.common.exceptions.custom.PaymentCreationException;
+import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
+import com.fiap.fastfood.common.logging.TransactionInformationStorage;
 import com.fiap.fastfood.core.entity.Payment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class PaymentUseCaseImplTest {
+class PaymentUseCaseImplTest {
 
     @InjectMocks
     private PaymentUseCaseImpl paymentUseCase;
 
-    @Test
-    void submitTest() {
-        final var gatewayMock = Mockito.mock(PaymentGateway.class);
-        final var paymentMock = Mockito.mock(Payment.class);
+    @Mock
+    private PaymentGateway paymentGateway;
 
-        Mockito.when(gatewayMock.save(paymentMock))
+    @Mock
+    private OrquestrationGateway orquestrationGateway;
+
+    @Test
+    void submitTest() throws PaymentCreationException {
+        final var paymentMock = Mockito.mock(Payment.class);
+        TransactionInformationStorage.putReceiveCount("2");
+
+        Mockito.when(paymentGateway.save(paymentMock))
                 .thenReturn(paymentMock);
 
-        Assertions.assertNotNull(paymentUseCase.createPayment(paymentMock, gatewayMock));
+        Assertions.assertNotNull(paymentUseCase.createPayment(paymentMock, paymentGateway, orquestrationGateway));
     }
 
     @Test
     void findAllTest() {
-        final var gatewayMock = Mockito.mock(PaymentGateway.class);
         final var paymentMock = Mockito.mock(Payment.class);
+        TransactionInformationStorage.putReceiveCount("2");
 
-        Mockito.when(gatewayMock.findAll())
+        Mockito.when(paymentGateway.findAll())
                 .thenReturn(List.of(paymentMock));
 
-        Assertions.assertNotNull(paymentUseCase.findAll(gatewayMock));
+        Assertions.assertNotNull(paymentUseCase.findAll(paymentGateway));
     }
 }
