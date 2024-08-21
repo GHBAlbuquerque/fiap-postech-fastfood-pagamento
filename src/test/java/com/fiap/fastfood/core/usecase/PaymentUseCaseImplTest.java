@@ -1,5 +1,6 @@
 package com.fiap.fastfood.core.usecase;
 
+import com.fiap.fastfood.common.dto.message.CustomMessageHeaders;
 import com.fiap.fastfood.common.exceptions.custom.PaymentCreationException;
 import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
@@ -30,7 +31,9 @@ class PaymentUseCaseImplTest {
     @Test
     void submitTest() throws PaymentCreationException {
         final var paymentMock = Mockito.mock(Payment.class);
+        TransactionInformationStorage.fill(new CustomMessageHeaders("sagaId", "orderId", "messagetype", "microsservice"));
         TransactionInformationStorage.putReceiveCount("2");
+        TransactionInformationStorage.putCustomerId(1L);
 
         Mockito.when(paymentGateway.save(paymentMock))
                 .thenReturn(paymentMock);
