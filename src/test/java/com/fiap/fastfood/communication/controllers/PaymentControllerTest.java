@@ -22,10 +22,10 @@ class PaymentControllerTest {
                 .port(port)
                 .header("Content-Type", "application/json")
                 .when()
-                .get("/Payment")
+                .get("/payment")
                 .then()
                 .log().ifValidationFails()
-                .statusCode(HttpStatus.NOT_FOUND.value())
+                .statusCode(HttpStatus.OK.value())
                 .contentType(JSON);
     }
 

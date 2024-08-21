@@ -89,6 +89,7 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it, exclude: [
                     'com/fiap/fastfood/common/exceptions/*/**',
+                    'com/fiap/fastfood/common/exceptions/**',
                     'com/fiap/fastfood/external/services/*/**',
                     'com/fiap/fastfood/core/entity/**',
                     'com/fiap/fastfood/common/dto/*/**',
