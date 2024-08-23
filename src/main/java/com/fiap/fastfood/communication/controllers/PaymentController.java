@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/payments")
 public class PaymentController {
 
     private final PaymentGateway gateway;

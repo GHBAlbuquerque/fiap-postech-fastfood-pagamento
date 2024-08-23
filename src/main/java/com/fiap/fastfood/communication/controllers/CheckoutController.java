@@ -1,6 +1,7 @@
 package com.fiap.fastfood.communication.controllers;
 
 import com.fiap.fastfood.common.builders.PaymentBuilder;
+import com.fiap.fastfood.common.dto.message.CustomMessageHeaders;
 import com.fiap.fastfood.common.dto.request.CheckoutRequest;
 import com.fiap.fastfood.common.dto.request.PaymentRequest;
 import com.fiap.fastfood.common.dto.response.PaymentResponse;
@@ -9,6 +10,7 @@ import com.fiap.fastfood.common.exceptions.model.ExceptionDetails;
 import com.fiap.fastfood.common.interfaces.gateways.OrquestrationGateway;
 import com.fiap.fastfood.common.interfaces.gateways.PaymentGateway;
 import com.fiap.fastfood.common.interfaces.usecase.PaymentUseCase;
+import com.fiap.fastfood.common.logging.TransactionInformationStorage;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -24,7 +26,7 @@ import java.net.URI;
 
 
 @RestController
-@RequestMapping("/checkout")
+@RequestMapping("/payments")
 public class CheckoutController {
 
     private final PaymentGateway gateway;
@@ -44,8 +46,12 @@ public class CheckoutController {
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class)))
     })
-    @PostMapping(produces = "application/json"/*, consumes = "application/json"*/)
+    @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<PaymentResponse> createPayment(@RequestBody @Valid PaymentRequest request) throws PaymentCreationException {
+        TransactionInformationStorage.putReceiveCount("1");
+        TransactionInformationStorage.fill(new CustomMessageHeaders("sagaId", "orderId", "REQUEST", "OWASP"));
+        TransactionInformationStorage.putCustomerId(1L);
+
         final var payment = PaymentBuilder.fromRequestToDomain(request);
 
         final var result = useCase.createPayment(payment, gateway, orquestrationGateway);
@@ -63,11 +69,15 @@ public class CheckoutController {
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class)))
     })
-    @PostMapping(produces = "application/json"/*, consumes = "application/json"*/)
+    @PostMapping(value = "/checkout", produces = "application/json", consumes = "application/json")
     public ResponseEntity<PaymentResponse> checkout(@RequestBody @Valid CheckoutRequest request) throws PaymentCreationException {
+        TransactionInformationStorage.putReceiveCount("1");
+        TransactionInformationStorage.fill(new CustomMessageHeaders("sagaId", "orderId", "REQUEST", "OWASP"));
+        TransactionInformationStorage.putCustomerId(1L);
+
         final var payment = PaymentBuilder.fromCheckoutRequestToDomain(request);
 
-        final var result = useCase.createPayment(payment, gateway, orquestrationGateway);
+        final var result = useCase.chargePayment(payment, gateway, orquestrationGateway);
 
         return ResponseEntity
                 .created(URI.create(result.getId()))
