@@ -1,11 +1,14 @@
 package com.fiap.fastfood.common.builders;
 
+import com.fiap.fastfood.common.dto.request.CheckoutRequest;
 import com.fiap.fastfood.common.dto.request.PaymentRequest;
 import com.fiap.fastfood.common.dto.response.PaymentResponse;
 import com.fiap.fastfood.common.utils.TimeConverter;
 import com.fiap.fastfood.core.entity.Payment;
 import com.fiap.fastfood.core.entity.PaymentStatus;
 import com.fiap.fastfood.external.orm.PaymentORM;
+
+import java.time.LocalDateTime;
 
 public class PaymentBuilder {
 
@@ -49,4 +52,14 @@ public class PaymentBuilder {
 
         return paymentORM;
     }
+
+    public static Payment fromCheckoutRequestToDomain(CheckoutRequest request) {
+        return Payment.builder()
+                .status(PaymentStatus.PENDING)
+                .id(request.getPaymentId())
+                .orderId(request.getOrderId())
+                .createdAt(LocalDateTime.now())
+                .build();
+    }
+
 }

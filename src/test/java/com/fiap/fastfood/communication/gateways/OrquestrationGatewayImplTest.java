@@ -1,6 +1,6 @@
 package com.fiap.fastfood.communication.gateways;
 
-import com.fiap.fastfood.common.dto.command.OrderCommand;
+import com.fiap.fastfood.common.dto.command.PaymentCommand;
 import com.fiap.fastfood.common.dto.message.CustomMessageHeaders;
 import com.fiap.fastfood.common.dto.message.CustomQueueMessage;
 import com.fiap.fastfood.common.exceptions.custom.MessageCreationException;
@@ -156,11 +156,11 @@ class OrquestrationGatewayImplTest {
         verify(messageSender, times(1)).sendMessage(any(), any(), any());
     }
 
-    private OrderCommand orderCommand() {
-        return new OrderCommand("orderId", 1L, "paymentId");
+    private PaymentCommand orderCommand() {
+        return new PaymentCommand("orderId", 1L, "paymentId");
     }
 
-    private CustomQueueMessage<OrderCommand> createMessage() {
+    private CustomQueueMessage<PaymentCommand> createMessage() {
         return new CustomQueueMessage<>(
                 new CustomMessageHeaders("sagaId", "orderId", "messageType", "order"),
                 orderCommand());

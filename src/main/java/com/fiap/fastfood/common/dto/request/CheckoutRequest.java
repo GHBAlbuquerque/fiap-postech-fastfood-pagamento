@@ -1,4 +1,4 @@
-package com.fiap.fastfood.common.dto.command;
+package com.fiap.fastfood.common.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-public class OrderCommand {
+public class CheckoutRequest {
 
     private String orderId;
     private Long customerId;
