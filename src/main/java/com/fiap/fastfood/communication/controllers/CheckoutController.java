@@ -44,7 +44,7 @@ public class CheckoutController {
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class)))
     })
-    @PostMapping(produces = "application/json", consumes = "application/json")
+    @PostMapping(produces = "application/json"/*, consumes = "application/json"*/)
     public ResponseEntity<PaymentResponse> createPayment(@RequestBody @Valid PaymentRequest request) throws PaymentCreationException {
         final var payment = PaymentBuilder.fromRequestToDomain(request);
 
@@ -63,7 +63,7 @@ public class CheckoutController {
             @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionDetails.class)))
     })
-    @PostMapping(produces = "application/json", consumes = "application/json")
+    @PostMapping(produces = "application/json"/*, consumes = "application/json"*/)
     public ResponseEntity<PaymentResponse> checkout(@RequestBody @Valid CheckoutRequest request) throws PaymentCreationException {
         final var payment = PaymentBuilder.fromCheckoutRequestToDomain(request);
 
