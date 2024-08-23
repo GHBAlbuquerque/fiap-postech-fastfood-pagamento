@@ -21,13 +21,6 @@ Os resultados destes estudos estão disponíveis no link abaixo:
 
 <br/>
 
-### 📐 Desenho de Solução (Arquitetura)
-
-Solução arquitetônica realizada (Cloud AWS) completa:
-![](misc/sol_fase_5.drawio.svg)
-
-<br/>
-
 ### 💻 Tecnologias
 
 Tecnologias utilizadas no projeto:
@@ -41,11 +34,12 @@ Tecnologias utilizadas no projeto:
 
 ## 🎬 Como executar este projeto?
 
-<br/>
+### 💿 Getting started - Rodando com CICD e infra descentralizada na Cloud AWS
 
-### 💿 Getting started - Rodando com CI/CD e infra descentralizada na Cloud AWS
+Este é um projeto composto por diversos repositórios, visando a correta divisão de responsabilidades, isolamento e
+facilidade de leitura.
 
-Para visualizar todos os repositórios da entrega e as instruções detalhadas de como rodar este projeto, leia **[este guia](https://github.com/GHBAlbuquerque/fiap-postech-fastfood-orquestrador?tab=readme-ov-file#-como-executar-este-projeto).**
+Para visualizar todos os repositórios que compõem o projeto e ler instruções detalhadas de como executá-lo, leia **[este guia](https://github.com/GHBAlbuquerque/fiap-postech-fastfood-orquestrador/tree/main?tab=readme-ov-file#-como-executar-este-projeto).**
 
 <br/>
 
